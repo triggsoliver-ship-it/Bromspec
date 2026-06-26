@@ -1,0 +1,15 @@
+{
+  "name": "Bromspec Motorworks",
+  "short_name": "Bromspec",
+  "description": "BMW & MINI specialist servicing, MOTs and diagnostics near Salisbury.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08090b",
+  "theme_color": "#08090b",
+  "icons": [
+    { "src": "/images/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/images/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
