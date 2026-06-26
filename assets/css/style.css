@@ -127,7 +127,8 @@ h1,h2,h3 { line-height: 1.02; font-weight: 700; letter-spacing: -.02em; }
 .nav.scrolled .nav__inner { padding-block: 13px; }
 
 .brand { display: flex; align-items: center; gap: 13px; z-index: 2; }
-.brand__mark { width: 40px; height: 40px; flex: none; }
+.brand__mark { width: 40px; height: 40px; flex: none; background: #fff url("../../images/logo.png") center/contain no-repeat; border-radius: 9px; }
+.brand__mark > * { display: none; }
 .brand__name { font-family: var(--font-display); font-size: 1.45rem; letter-spacing: .06em; line-height: 1; }
 .brand__name span { color: var(--accent-2); }
 .brand__sub { display:block; font-family: var(--font-body); font-size: .56rem; letter-spacing: .42em; color: var(--text-mute); margin-top: 3px; }
