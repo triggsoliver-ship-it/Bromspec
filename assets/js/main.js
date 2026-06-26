@@ -279,4 +279,78 @@
       }
     });
   }
+
+  /* ---------------------------------------------------- Add-to-home-screen prompt */
+  (function () {
+    const standalone = matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+    if (standalone) return; // already installed
+
+    const ua = navigator.userAgent || "";
+    const isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/.test(ua);
+    if (!isIOS && !isAndroid) return; // mobile only
+
+    try {
+      const snooze = +(localStorage.getItem("a2hs-dismiss") || 0);
+      if (snooze && Date.now() - snooze < 14 * 864e5) return; // re-offer after 14 days
+    } catch (e) {}
+
+    const style = document.createElement("style");
+    style.textContent =
+      ".a2hs{position:fixed;left:12px;right:12px;bottom:12px;z-index:200;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:rgba(18,21,25,.97);border:1px solid var(--line-strong);box-shadow:0 18px 50px -12px rgba(0,0,0,.7);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transform:translateY(180%);transition:transform .5s cubic-bezier(.22,1,.36,1)}" +
+      ".a2hs.in{transform:none}" +
+      ".a2hs__icon{width:42px;height:42px;border-radius:9px;background:#fff;flex:none;object-fit:contain}" +
+      ".a2hs__text{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}" +
+      ".a2hs__text strong{font-size:.95rem;color:var(--text);line-height:1.2}" +
+      ".a2hs__sub{font-size:.8rem;color:var(--text-mute)}" +
+      ".a2hs__sub svg{width:15px;height:15px;vertical-align:-3px}" +
+      ".a2hs__btn{flex:none;padding:10px 16px;border-radius:100px;border:0;background:linear-gradient(180deg,var(--accent-2),var(--accent));color:#fff;font-weight:600;font-size:.9rem;cursor:pointer}" +
+      ".a2hs__x{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--line-strong);background:transparent;color:var(--text-soft);font-size:1.15rem;line-height:1;cursor:pointer}" +
+      "@media(min-width:560px){.a2hs{left:auto;right:16px;bottom:16px;max-width:390px}}";
+    document.head.appendChild(style);
+
+    const shareIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg>';
+    const sub = isIOS
+      ? "Tap " + shareIcon + " then “Add to Home Screen”."
+      : "Quick access to booking &amp; MOTs, one tap away.";
+
+    const bar = document.createElement("div");
+    bar.className = "a2hs";
+    bar.setAttribute("role", "dialog");
+    bar.setAttribute("aria-label", "Add Bromspec to your home screen");
+    bar.innerHTML =
+      '<img class="a2hs__icon" src="/images/logo.png" alt="" />' +
+      '<div class="a2hs__text"><strong>Add Bromspec to your phone</strong>' +
+      '<span class="a2hs__sub">' + sub + "</span></div>" +
+      (isIOS ? "" : '<button class="a2hs__btn" type="button">Install</button>') +
+      '<button class="a2hs__x" type="button" aria-label="Dismiss">&times;</button>';
+
+    let deferred = null;
+    function show() {
+      if (document.body.contains(bar)) return;
+      document.body.appendChild(bar);
+      requestAnimationFrame(() => requestAnimationFrame(() => bar.classList.add("in")));
+    }
+    function hide() { bar.classList.remove("in"); setTimeout(() => bar.remove(), 500); }
+    function dismiss() { try { localStorage.setItem("a2hs-dismiss", Date.now()); } catch (e) {} hide(); }
+
+    bar.querySelector(".a2hs__x").addEventListener("click", dismiss);
+    const installBtn = bar.querySelector(".a2hs__btn");
+    if (installBtn) {
+      installBtn.addEventListener("click", async () => {
+        if (!deferred) { dismiss(); return; }
+        deferred.prompt();
+        try { await deferred.userChoice; } catch (e) {}
+        deferred = null;
+        dismiss();
+      });
+    }
+
+    if (isAndroid) {
+      window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferred = e; show(); });
+      window.addEventListener("appinstalled", () => { try { localStorage.setItem("a2hs-dismiss", Date.now()); } catch (e) {} hide(); });
+    } else if (isIOS) {
+      setTimeout(show, 2600);
+    }
+  })();
 })();
