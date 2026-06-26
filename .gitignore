@@ -1,0 +1,12 @@
+# OS junk
+.DS_Store
+**/.DS_Store
+
+# Raw, unoptimised source photos (optimised versions live in images/)
+/Bromspec Pics*/
+
+# Heavy all-in-one preview export (not needed for the live site)
+bromspec-preview.html
+
+# Scratch
+montage.png
