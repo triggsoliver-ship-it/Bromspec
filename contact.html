@@ -29,13 +29,54 @@
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="apple-touch-icon" href="images/logo.png" />
 <link rel="stylesheet" href="assets/css/style.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.bromspec.co.uk/" },
+    { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://www.bromspec.co.uk/contact.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "url": "https://www.bromspec.co.uk/contact.html",
+  "mainEntity": {
+    "@type": "AutoRepair",
+    "name": "Bromspec Motorworks",
+    "telephone": "+44 1264 315305",
+    "email": "hello@bromspec.co.uk",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Unit 3a, Bunas Business Park, Hollom Down Road, Lopcombe",
+      "addressLocality": "Salisbury",
+      "addressRegion": "Wiltshire",
+      "postalCode": "SP5 1BP",
+      "addressCountry": "GB"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+44 1264 315305",
+      "email": "hello@bromspec.co.uk",
+      "contactType": "customer service",
+      "areaServed": "GB",
+      "availableLanguage": "English"
+    }
+  }
+}
+</script>
 </head>
 <body>
+
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="nav" id="nav">
   <div class="container nav__inner">
     <a class="brand" href="index.html" aria-label="Bromspec Motorworks home">
-      <svg class="brand__mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="22" stroke="#5aa0ff" stroke-width="2"/><path d="M24 4v40M4 24h40" stroke="#2e7dff" stroke-width="1.4" opacity=".5"/><path d="M24 24 A20 20 0 0 1 44 24 Z" fill="#2e7dff" opacity=".9"/><path d="M24 24 A20 20 0 0 1 4 24 Z" fill="#2e7dff" opacity=".9"/></svg>
+      <svg class="brand__mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="22" stroke="#5aa0ff" stroke-width="2"/><path d="M24 4v40M4 24h40" stroke="#2e7dff" stroke-width="1.4" opacity=".5"/><path d="M24 24 A20 20 0 0 1 44 24 Z" fill="#2e7dff" opacity=".9"/><path d="M24 24 A20 20 0 0 1 4 24 Z" fill="#2e7dff" opacity=".9"/></svg>
       <span class="brand__name">BROM<span>SPEC</span><span class="brand__sub">MOTORWORKS</span></span>
     </a>
     <nav class="nav__menu" aria-label="Primary">
@@ -44,16 +85,18 @@
         <li><a href="services.html">Services</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="index.html#gallery">Gallery</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="contact.html" class="active" aria-current="page">Contact</a></li>
       </ul>
-      <a class="nav__phone" href="tel:+441264315305"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92Z"/></svg>01264 315305</a>
+      <a class="nav__phone" href="tel:+441264315305"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92Z"/></svg>01264 315305</a>
     </nav>
     <div class="nav__cta">
       <a class="btn btn-primary" href="tel:+441264315305" style="--pad:12px 24px">Call Now</a>
-      <button class="nav__burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button class="nav__burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
+
+<main id="main">
 
 <section class="pagehead">
   <div class="container" data-reveal>
@@ -68,26 +111,26 @@
   <div class="container contact-grid">
     <div class="contact-info" data-reveal>
       <div class="info-card">
-        <span class="info-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92Z"/></svg></span>
+        <span class="info-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92Z"/></svg></span>
         <div><h4>Call us</h4><a href="tel:+441264315305">01264 315305</a><p class="muted" style="font-size:.88rem">Need our help or advice? Call us now.</p></div>
       </div>
       <div class="info-card">
-        <span class="info-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+        <span class="info-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
         <div><h4>Email us</h4><a href="mailto:hello@bromspec.co.uk">hello@bromspec.co.uk</a></div>
       </div>
       <div class="info-card">
-        <span class="info-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <span class="info-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
         <div><h4>Visit us</h4><p>Unit 3a, Bunas Business Park<br>Hollom Down Road, Lopcombe<br>SP5 1BP</p></div>
       </div>
       <div class="info-card">
-        <span class="info-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <span class="info-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
         <div><h4>Opening hours</h4><p>Mon–Thurs: 8:00am – 5:00pm<br>Friday: 7:30am – 4:30pm<br>Sat–Sun: Closed</p></div>
       </div>
     </div>
 
-    <form class="form" id="contact-form" data-reveal data-reveal-delay="1" novalidate
+    <form class="form" id="contact-form" data-reveal data-reveal-delay="1" novalidate aria-label="Booking enquiry"
           action="https://api.web3forms.com/submit" method="POST">
-      <!-- ── Web3Forms setup ─────────────────────────────────────────────────
+      <!-- ── Web3Forms setup ──────────────────────────────────────────
            1. Go to https://web3forms.com and enter hello@bromspec.co.uk
            2. Copy the Access Key they email/show you
            3. Paste it between the quotes below (replacing REPLACE_WITH_...)
@@ -96,7 +139,7 @@
       <input type="hidden" name="subject" value="New enquiry from bromspec.co.uk" />
       <input type="hidden" name="from_name" value="Bromspec Website" />
       <!-- Honeypot: hidden from people, traps spam bots -->
-      <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
       <div class="row">
         <div class="field"><label for="name">Name <span class="req">*</span></label><input id="name" name="name" type="text" placeholder="Your name" required autocomplete="name" /></div>
@@ -119,8 +162,8 @@
       </div>
       <div class="field"><label for="message">Message <span class="opt">(optional)</span></label><textarea id="message" name="message" placeholder="Tell us about your car and what you need…"></textarea></div>
       <button class="btn btn-primary btn-lg" type="submit" style="justify-content:center">Send Request
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      <p class="form__note" id="form-status">Prefer to talk? Call us on <a href="tel:+441264315305" style="color:var(--accent-2)">01264 315305</a>.</p>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <p class="form__note" id="form-status" role="status" aria-live="polite">Prefer to talk? Call us on <a href="tel:+441264315305" style="color:var(--accent-2)">01264 315305</a>.</p>
     </form>
   </div>
 </section>
@@ -133,6 +176,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <footer class="footer">
   <div class="container">
