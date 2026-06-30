@@ -18,10 +18,14 @@
   /* ---------------------------------------------------- Mobile menu */
   const burger = $(".nav__burger");
   if (burger && nav) {
-    const close = () => nav.classList.remove("open");
-    burger.addEventListener("click", () => nav.classList.toggle("open"));
+    // Keep the burger's aria-expanded in sync so screen readers announce state
+    const syncExpanded = () =>
+      burger.setAttribute("aria-expanded", nav.classList.contains("open") ? "true" : "false");
+    const close = () => { nav.classList.remove("open"); syncExpanded(); };
+    burger.addEventListener("click", () => { nav.classList.toggle("open"); syncExpanded(); });
     $$(".nav__menu a").forEach(a => a.addEventListener("click", close));
     window.addEventListener("keydown", e => e.key === "Escape" && close());
+    syncExpanded();
   }
 
   /* ---------------------------------------------------- Hero intro */

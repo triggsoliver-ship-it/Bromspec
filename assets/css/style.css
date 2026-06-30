@@ -54,6 +54,23 @@ ul { list-style: none; padding: 0; }
 
 ::selection { background: var(--accent); color: #fff; }
 
+/* ----------------------------------------------------- Accessibility */
+/* Visible keyboard focus ring (does not appear on mouse clicks) */
+:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+/* Skip link — first focusable element, jumps keyboard/screen-reader users
+   straight to the page content past the navigation */
+.skip-link {
+  position: absolute; top: -100px; left: 12px; z-index: 1000;
+  padding: 12px 18px; border-radius: 0 0 10px 10px;
+  background: var(--accent); color: #fff; font-weight: 600;
+  transition: top .25s var(--ease);
+}
+.skip-link:focus { top: 0; }
+
 /* Ambient grain / glow background */
 body::before {
   content: "";
