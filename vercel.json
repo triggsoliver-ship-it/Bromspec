@@ -1,0 +1,29 @@
+{
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/about", "destination": "/about.html", "permanent": true },
+    { "source": "/about-us", "destination": "/about.html", "permanent": true },
+    { "source": "/contact", "destination": "/contact.html", "permanent": true },
+    { "source": "/contact-us", "destination": "/contact.html", "permanent": true },
+    { "source": "/book-online", "destination": "/contact.html", "permanent": true },
+    { "source": "/services", "destination": "/services.html", "permanent": true },
+    { "source": "/service-page", "destination": "/services.html", "permanent": true },
+    { "source": "/service-page/mot-test", "destination": "/services.html#mot", "permanent": true },
+    { "source": "/mot-test", "destination": "/services.html#mot", "permanent": true },
+    { "source": "/on-site-mot-tests", "destination": "/services.html#mot", "permanent": true },
+    { "source": "/on-site-mot-testing", "destination": "/services.html#mot", "permanent": true },
+    { "source": "/advanced-diagnostics", "destination": "/services.html#diagnostics", "permanent": true },
+    { "source": "/servicing", "destination": "/services.html#servicing", "permanent": true },
+    { "source": "/all-makes-servicing", "destination": "/services.html#servicing", "permanent": true },
+    { "source": "/remapping", "destination": "/services.html", "permanent": true },
+    { "source": "/four-wheel-alignment", "destination": "/services.html", "permanent": true },
+    { "source": "/steering-geometry", "destination": "/services.html", "permanent": true },
+    { "source": "/dpf-clean", "destination": "/services.html", "permanent": true },
+    { "source": "/air-con-service", "destination": "/services.html", "permanent": true },
+    { "source": "/free-courtesy-car", "destination": "/services.html", "permanent": true },
+    { "source": "/interest-free-finance", "destination": "/services.html", "permanent": true },
+    { "source": "/gallery", "destination": "/index.html#gallery", "permanent": true },
+    { "source": "/home", "destination": "/", "permanent": true }
+  ]
+}
