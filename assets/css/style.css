@@ -498,6 +498,6 @@ h1,h2,h3 { line-height: 1.02; font-weight: 700; letter-spacing: -.02em; }
 }
 @media (max-width: 560px) {
   .form .row { grid-template-columns: 1fr; }
-  .footer__grid { grid-template-columns: 1fr }
+  .footer__grid { grid-template-columns: 1fr; }
   .hero__stats { gap: 28px; }
 }
