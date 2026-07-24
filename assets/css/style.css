@@ -162,6 +162,33 @@ h1,h2,h3 { line-height: 1.02; font-weight: 700; letter-spacing: -.02em; }
 .nav__cta { display: flex; align-items: center; gap: 18px; }
 .nav__phone { display: flex; align-items: center; gap: 9px; font-weight: 600; font-size: .95rem; }
 .nav__phone svg { width: 17px; height: 17px; color: var(--accent-2); }
+.nav__phone--menu { display: none; }
+.nav__phone--cta { white-space: nowrap; transition: color .3s; }
+.nav__phone--cta:hover { color: var(--accent-2); }
+
+/* Services dropdown */
+.nav__item--dropdown { position: relative; }
+.nav__item--dropdown > a { display: inline-flex; align-items: center; gap: 7px; }
+.nav__chevron { width: 11px; height: 11px; flex: none; transition: transform .3s var(--ease); }
+.nav__item--dropdown:hover .nav__chevron,
+.nav__item--dropdown:focus-within .nav__chevron { transform: rotate(180deg); }
+.nav__item--dropdown::before { content: ""; position: absolute; left: -14px; right: -14px; top: 100%; height: 24px; }
+.nav__submenu {
+  position: absolute; top: calc(100% + 20px); left: -22px; z-index: 5;
+  min-width: 250px; padding: 10px;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow);
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity .3s var(--ease), transform .3s var(--ease), visibility .3s;
+}
+.nav__item--dropdown:hover .nav__submenu,
+.nav__item--dropdown:focus-within .nav__submenu { opacity: 1; visibility: visible; transform: none; }
+.nav__submenu li + li { margin-top: 2px; }
+.nav__submenu a { display: block; padding: 9px 12px; border-radius: 8px; font-size: .9rem; white-space: nowrap; }
+.nav__submenu a::after { display: none; }
+.nav__submenu a:hover, .nav__submenu a:focus-visible { background: rgba(46,125,255,.12); color: var(--text); }
+
+@media (max-width: 1120px) { .nav__phone--cta { display: none; } }
 
 .nav__burger { display: none; flex-direction: column; gap: 5px; width: 30px; height: 24px; justify-content: center; background: none; border: 0; z-index: 2; }
 .nav__burger span { height: 2px; width: 100%; background: var(--text); border-radius: 2px; transition: transform .4s var(--ease), opacity .3s; }
@@ -445,16 +472,32 @@ h1,h2,h3 { line-height: 1.02; font-weight: 700; letter-spacing: -.02em; }
   .nav__burger { display: flex; }
   .nav__menu {
     position: fixed; inset: 0; z-index: 1; background: rgba(8,9,11,.97); backdrop-filter: blur(14px);
-    display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: var(--gutter);
+    display: flex; flex-direction: column; justify-content: flex-start; gap: 8px;
+    padding: 108px var(--gutter) 40px; overflow-y: auto;
     transform: translateX(100%); transition: transform .5s var(--ease); pointer-events: none;
   }
   .nav.open .nav__menu { transform: none; pointer-events: auto; }
   .nav__menu .nav__links { display: flex; flex-direction: column; gap: 4px; }
   .nav__menu .nav__links a { font-size: 1.8rem; font-family: var(--font-display); padding: 8px 0; }
-  .nav__menu .nav__phone { display: flex; margin-top: 24px; font-size: 1.1rem; }
+  .nav__item--dropdown::before { display: none; }
+  .nav__chevron { display: none; }
+  .nav__submenu {
+    position: static; opacity: 1; visibility: visible; transform: none; transition: none;
+    min-width: 0; margin: 2px 0 8px 6px; padding: 0 0 0 16px;
+    background: none; border: 0; border-left: 2px solid var(--line-strong); border-radius: 0; box-shadow: none;
+  }
+  .nav__menu .nav__submenu a {
+    font-size: 1.05rem; font-family: var(--font-body); color: var(--text-soft);
+    display: flex; align-items: center; min-height: 44px; padding: 4px 0;
+  }
+  .nav__menu .nav__submenu a:hover { color: var(--text); }
+  .nav__menu .nav__phone {
+    display: flex; align-items: center; margin-top: 20px; padding: 10px 0; min-height: 44px;
+    font-size: 1.15rem;
+  }
 }
 @media (max-width: 560px) {
   .form .row { grid-template-columns: 1fr; }
-  .footer__grid { grid-template-columns: 1fr; }
+  .footer__grid { grid-template-columns: 1fr }
   .hero__stats { gap: 28px; }
 }
