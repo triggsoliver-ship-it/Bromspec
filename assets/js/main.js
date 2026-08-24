@@ -94,70 +94,80 @@
   const VIDEO_EXTS = ["mp4", "webm", "mov"];
   const MAX_PROBE  = 40;   // highest number it will look for
 
-  function tryImage(srcs) {
-    return new Promise(resolve => {
-      let i = 0;
-      const next = () => {
-        if (i >= srcs.length) return resolve(null);
-        const img = new Image();
-        img.onload  = () => resolve({ type: "image", src: srcs[i] });
-        img.onerror = () => { i++; next(); };
-        img.src = srcs[i];
-      };
-      next();
-    });
-  }
-  function tryVideo(srcs) {
-    return new Promise(resolve => {
-      let i = 0;
-      const next = () => {
-        if (i >= srcs.length) return resolve(null);
-        const v = document.createElement("video");
-        v.onloadedmetadata = () => resolve({ type: "video", src: srcs[i] });
-        v.onerror = () => { i++; next(); };
-        v.src = srcs[i];
-      };
-      next();
-    });
-  }
   const pad = n => String(n).padStart(2, "0");
+
+  // Probe with tiny HEAD requests instead of hidden <img>/<video> loaders.
+  // The old element-based probe downloaded every file during the scan, walked
+  // candidates one at a time, and hidden <video> probes can stall forever in
+  // background tabs — leaving visitors staring at the placeholder. HEAD
+  // requests are header-only, run in parallel, work in background tabs, and a
+  // 3s timeout guarantees the scan can never hang.
+  async function exists(url) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 3000);
+    try {
+      const res = await fetch(url, { method: "HEAD", signal: ctrl.signal });
+      return res.ok;
+    } catch (err) {
+      return false;
+    } finally {
+      clearTimeout(t);
+    }
+  }
+
+  async function firstHit(candidates) {
+    const hits = await Promise.all(candidates.map(c => exists(c.src)));
+    const i = hits.indexOf(true);
+    return i === -1 ? null : candidates[i];
+  }
+
+  // Images win over videos for the same number, matching the old behaviour.
+  async function probeSlot(folder, n) {
+    const bases = [pad(n), String(n)];
+    const imgs = [], vids = [];
+    bases.forEach(b => {
+      IMAGE_EXTS.forEach(ext => imgs.push({ type: "image", src: `${folder}${b}.${ext}` }));
+      VIDEO_EXTS.forEach(ext => vids.push({ type: "video", src: `${folder}${b}.${ext}` }));
+    });
+    return (await firstHit(imgs)) || (await firstHit(vids));
+  }
+
+  function appendItem(el, item) {
+    const wrap = document.createElement("div");
+    wrap.className = "gallery__item";
+    wrap.setAttribute("data-reveal", "");
+    if (item.type === "image") {
+      const im = new Image();
+      im.src = item.src; im.loading = "lazy"; im.decoding = "async"; im.alt = "Bromspec workshop";
+      wrap.appendChild(im);
+    } else {
+      const v = document.createElement("video");
+      v.src = item.src; v.muted = true; v.loop = true; v.playsInline = true;
+      v.autoplay = true; v.setAttribute("playsinline", "");
+      wrap.appendChild(v);
+    }
+    el.appendChild(wrap);
+    requestAnimationFrame(() => wrap.classList.add("in"));
+  }
 
   async function loadGallery(el) {
     const folder = el.dataset.gallery.replace(/\/?$/, "/");
-    const found = [];
-    for (let n = 1; n <= MAX_PROBE; n++) {
-      const base = [pad(n), String(n)];
-      const imgSrcs = [];
-      base.forEach(b => IMAGE_EXTS.forEach(ext => imgSrcs.push(`${folder}${b}.${ext}`)));
-      const vidSrcs = [];
-      base.forEach(b => VIDEO_EXTS.forEach(ext => vidSrcs.push(`${folder}${b}.${ext}`)));
-
-      const [img, vid] = await Promise.all([tryImage(imgSrcs), tryVideo(vidSrcs)]);
-      const hit = img || vid;
-      if (!hit) break;          // stop at first gap
-      found.push(hit);
-    }
-
-    if (!found.length) return;  // keep the placeholder message
-    el.innerHTML = "";
-    el.classList.add("gallery");
-    found.forEach(item => {
-      const wrap = document.createElement("div");
-      wrap.className = "gallery__item";
-      wrap.setAttribute("data-reveal", "");
-      if (item.type === "image") {
-        const im = new Image();
-        im.src = item.src; im.loading = "lazy"; im.alt = "Bromspec workshop";
-        wrap.appendChild(im);
-      } else {
-        const v = document.createElement("video");
-        v.src = item.src; v.muted = true; v.loop = true; v.playsInline = true;
-        v.autoplay = true; v.setAttribute("playsinline", "");
-        wrap.appendChild(v);
+    const CHUNK = 8;               // probe 8 numbers at a time, in parallel
+    let started = false;
+    for (let base = 1; base <= MAX_PROBE; base += CHUNK) {
+      const slots = [];
+      for (let n = base; n < base + CHUNK && n <= MAX_PROBE; n++) slots.push(probeSlot(folder, n));
+      for (const slot of slots) {
+        const hit = await slot;
+        if (!hit) return;          // stop at first gap (placeholder stays if nothing found)
+        if (!started) {
+          el.innerHTML = "";
+          el.classList.add("gallery");
+          started = true;
+        }
+        appendItem(el, hit);       // render each item the moment it resolves
       }
-      el.appendChild(wrap);
-      requestAnimationFrame(() => wrap.classList.add("in"));
-    });
+    }
   }
 
   $$("[data-gallery]").forEach(loadGallery);
