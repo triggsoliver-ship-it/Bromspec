@@ -281,8 +281,9 @@
         });
         const data = await res.json().catch(() => ({}));
         if (res.ok && data.success) {
-          showNote("Thanks — your enquiry has been sent. Our team will be in touch shortly.", "var(--accent-2)");
-          form.reset();
+          // Land on the thank-you page so GTM / Google Ads can record the conversion.
+          window.location.href = "/thank-you";
+          return;
         } else {
           showNote("Sorry, something went wrong sending your enquiry. Please call us on <a href=\"tel:+441264315305\" style=\"color:var(--accent-2)\">01264 315305</a> or email <a href=\"mailto:hello@bromspec.co.uk\" style=\"color:var(--accent-2)\">hello@bromspec.co.uk</a>.", "#ff8a8a");
         }
