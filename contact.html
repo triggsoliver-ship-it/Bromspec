@@ -109,7 +109,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </ul>
         </li>
         <li><a href="/about">About</a></li>
-        <li><a href="/#gallery">Gallery</a></li>
         <li><a href="/contact" class="active" aria-current="page">Contact</a></li>
       </ul>
       <a class="nav__phone nav__phone--menu" href="tel:+441264315305"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92Z"/></svg>01264 315305</a>
@@ -156,7 +155,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <form class="form" id="contact-form" data-reveal data-reveal-delay="1" novalidate aria-label="Booking enquiry"
           action="https://api.web3forms.com/submit" method="POST">
-      <!-- ── Web3Forms setup ───────────────────────────────────────
+      <!-- ── Web3Forms setup ─────────────────────────
            1. Go to https://web3forms.com and enter hello@bromspec.co.uk
            2. Copy the Access Key they email/show you
            3. Paste it between the quotes below (replacing REPLACE_WITH_...)
@@ -164,6 +163,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <input type="hidden" name="access_key" value="b5e7fc93-cd5f-41dd-8f59-96f3c5443870" />
       <input type="hidden" name="subject" value="New enquiry from bromspec.co.uk" />
       <input type="hidden" name="from_name" value="Bromspec Website" />
+      <!-- Land successful enquiries on the thank-you page for Google Ads conversion tracking -->
+      <input type="hidden" name="redirect" value="https://www.bromspec.co.uk/thank-you" />
       <!-- Honeypot: hidden from people, traps spam bots -->
       <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
